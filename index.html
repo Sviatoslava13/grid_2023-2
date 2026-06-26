@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Звіт — CSS Grid & Проєктні роботи</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #0c1220;
+        --bg2: #111827;
+        --card: #161f33;
+        --border: #1e2d4a;
+        --blue: #4f8ef7;
+        --mint: #3ecfb2;
+        --purple: #8b6bf7;
+        --white: #f0f5ff;
+        --muted: #7b92b8;
+        --text: #cbd5e1;
+        --r: 16px;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Inter", sans-serif;
+        font-size: 15px;
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        position: relative;
+        overflow: hidden;
+        padding: 80px 24px 72px;
+        text-align: center;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 80% 60% at 50% -10%,
+            rgba(79, 142, 247, 0.25) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse 60% 40% at 80% 80%,
+            rgba(62, 207, 178, 0.12) 0%,
+            transparent 60%
+          );
+        pointer-events: none;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(79, 142, 247, 0.12);
+        border: 1px solid rgba(79, 142, 247, 0.35);
+        border-radius: 100px;
+        padding: 6px 18px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--blue);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 28px;
+      }
+      .badge span {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--blue);
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+      .photo__group {
+        width: 100%;
+      }
+      h1 {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: clamp(28px, 7vw, 58px);
+        font-weight: 800;
+        color: var(--white);
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        margin-bottom: 20px;
+      }
+      h1 em {
+        font-style: normal;
+        background: linear-gradient(135deg, var(--blue), var(--mint));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .hero-sub {
+        font-size: clamp(14px, 3vw, 17px);
+        color: var(--muted);
+        max-width: 520px;
+        margin: 0 auto 44px;
+      }
+
+      /* Stats row */
+      .stats {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 0;
+      }
+      .stat {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 18px 28px;
+        text-align: center;
+        min-width: 110px;
+      }
+      .stat-num {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--white);
+        line-height: 1;
+      }
+      .stat-num.blue {
+        color: var(--blue);
+      }
+      .stat-num.mint {
+        color: var(--mint);
+      }
+      .stat-num.purple {
+        color: var(--purple);
+      }
+      .stat-label {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      /* ── SECTION ── */
+      section {
+        padding: 64px 24px;
+        max-width: 860px;
+        margin: 0 auto;
+      }
+      .section-label {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--mint);
+        margin-bottom: 14px;
+      }
+      h2 {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: clamp(22px, 5vw, 34px);
+        font-weight: 700;
+        color: var(--white);
+        line-height: 1.25;
+        margin-bottom: 20px;
+        letter-spacing: -0.01em;
+      }
+      p {
+        color: var(--text);
+        margin-bottom: 14px;
+      }
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* ── THANK YOU CARD ── */
+      .thankyou {
+        background: linear-gradient(
+          135deg,
+          rgba(79, 142, 247, 0.1),
+          rgba(62, 207, 178, 0.08)
+        );
+        border: 1px solid rgba(79, 142, 247, 0.25);
+        border-radius: var(--r);
+        padding: 40px 32px;
+        position: relative;
+        overflow: hidden;
+      }
+      .thankyou::after {
+        content: "💙";
+        position: absolute;
+        right: 28px;
+        top: 24px;
+        font-size: 40px;
+        opacity: 0.15;
+      }
+      .thankyou p {
+        font-size: 15.5px;
+        line-height: 1.8;
+      }
+
+      /* ── DIVIDER ── */
+      .divider {
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--border),
+          transparent
+        );
+        margin: 0 24px;
+      }
+
+      /* ── SKILLS GRID ── */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 14px;
+        margin-top: 28px;
+      }
+      .skill-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+      }
+      .skill-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+      .skill-icon.b {
+        background: rgba(79, 142, 247, 0.15);
+      }
+      .skill-icon.m {
+        background: rgba(62, 207, 178, 0.15);
+      }
+      .skill-icon.p {
+        background: rgba(139, 107, 247, 0.15);
+      }
+      .skill-icon.o {
+        background: rgba(247, 179, 79, 0.15);
+      }
+      .skill-title {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 600;
+        color: var(--white);
+        font-size: 14px;
+        margin-bottom: 3px;
+      }
+      .skill-desc {
+        font-size: 12.5px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      /* ── TEAM CARDS ── */
+      .teams-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .teams-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      @media (min-width: 600px) {
+        .teams-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .team-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--r);
+        overflow: hidden;
+        transition:
+          border-color 0.25s,
+          transform 0.25s,
+          box-shadow 0.25s;
+        position: relative;
+      }
+      .team-card:hover {
+        border-color: var(--blue);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(79, 142, 247, 0.18);
+      }
+      .team-num {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 20px;
+        padding: 3px 10px;
+        letter-spacing: 0.05em;
+      }
+      .team-photo-area {
+        width: 100%;
+        aspect-ratio: 16/9;
+        background: linear-gradient(135deg, #1a2540, #0f1a30);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        position: relative;
+        overflow: hidden;
+      }
+      .team-photo-area::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(79, 142, 247, 0.15),
+          rgba(62, 207, 178, 0.1)
+        );
+      }
+      .team-photo-placeholder {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+      .team-photo-placeholder span:first-child {
+        font-size: 36px;
+      }
+      .team-photo-placeholder span:last-child {
+        font-size: 11px;
+        color: var(--muted);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .team-body {
+        padding: 22px;
+      }
+      .team-name {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 19px;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 10px;
+      }
+      .team-members {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-bottom: 18px;
+      }
+      .member-tag {
+        font-size: 12px;
+        background: rgba(79, 142, 247, 0.1);
+        border: 1px solid rgba(79, 142, 247, 0.2);
+        color: #8cb8ff;
+        border-radius: 20px;
+        padding: 3px 12px;
+        font-weight: 500;
+      }
+      .team-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(62, 207, 178, 0.1);
+        border: 1px solid rgba(62, 207, 178, 0.25);
+        border-radius: 10px;
+        padding: 11px 16px;
+        text-decoration: none;
+        color: var(--mint);
+        font-size: 13px;
+        font-weight: 600;
+        transition: background 0.2s;
+        word-break: break-all;
+      }
+      .team-link:hover {
+        background: rgba(62, 207, 178, 0.18);
+      }
+      .team-link svg {
+        flex-shrink: 0;
+      }
+
+      /* special card for team that found real client */
+      .team-card.special {
+        border-color: rgba(247, 179, 79, 0.3);
+      }
+      .team-card.special:hover {
+        border-color: #f7b34f;
+        box-shadow: 0 12px 40px rgba(247, 179, 79, 0.15);
+      }
+      .real-client-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: rgba(247, 179, 79, 0.12);
+        border: 1px solid rgba(247, 179, 79, 0.3);
+        border-radius: 20px;
+        padding: 4px 12px;
+        font-size: 11.5px;
+        font-weight: 700;
+        color: #f7b34f;
+        letter-spacing: 0.04em;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+      }
+
+      /* ── GROUP PHOTO ── */
+      .group-photo-section {
+        padding: 48px 24px;
+      }
+      .group-photo-box {
+        max-width: 860px;
+        margin: 0 auto;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+      }
+      .group-photo-inner {
+        aspect-ratio: 16/7;
+        background: linear-gradient(135deg, #0d1929, #1a2e50);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 14px;
+        position: relative;
+        overflow: hidden;
+      }
+      .group-photo-inner::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            circle at 25% 50%,
+            rgba(79, 142, 247, 0.15),
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 75% 50%,
+            rgba(62, 207, 178, 0.1),
+            transparent 50%
+          );
+      }
+      .group-photo-inner span {
+        position: relative;
+        z-index: 1;
+      }
+      .group-emoji {
+        font-size: 52px;
+      }
+      .group-label {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 15px;
+        color: var(--muted);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .photo-caption {
+        padding: 18px 24px;
+        border-top: 1px solid var(--border);
+        text-align: center;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .photo-hint {
+        font-size: 12px;
+        color: rgba(123, 146, 184, 0.6);
+        margin-top: 4px;
+        font-style: italic;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        text-align: center;
+        padding: 40px 24px;
+        border-top: 1px solid var(--border);
+        font-size: 13px;
+        color: var(--muted);
+      }
+      footer strong {
+        color: var(--white);
+      }
+
+      /* ── MOBILE TWEAKS ── */
+      @media (max-width: 480px) {
+        .hero {
+          padding: 60px 16px 52px;
+        }
+        section {
+          padding: 48px 16px;
+        }
+        .thankyou {
+          padding: 28px 20px;
+        }
+        .team-body {
+          padding: 18px;
+        }
+        .stat {
+          padding: 14px 20px;
+          min-width: 90px;
+        }
+        .stat-num {
+          font-size: 24px;
+        }
+        .skills-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ── HERO ── -->
+    <header class="hero">
+      <div class="badge"><span></span>ШКМ · 2025–2026</div>
+      <h1>Модуль CSS Grid — <em>завершено!</em></h1>
+      <p class="hero-sub">
+        Наші учні опанували сучасні інструменти веброзробки та представили
+        реальні проєкти — від ідеї у Figma до живого сайту в мережі.
+      </p>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num blue">5</div>
+          <div class="stat-label">команд</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num mint">13</div>
+          <div class="stat-label">учнів</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num purple">5</div>
+          <div class="stat-label">сайтів</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="divider"></div>
+
+    <!-- ── THANK YOU ── -->
+    <section>
+      <span class="section-label">Подяка</span>
+      <h2>Дорогі батьки — дякуємо вам!</h2>
+      <div class="thankyou">
+        <p>
+          Цей модуль був справжнім викликом — і учні впоралися з ним блискуче.
+          За цей час вони не просто вивчили нову технологію: вони навчилися
+          ставити цілі, домовлятися, розподіляти ролі, зустрічати дедлайни і
+          разом радіти результату.
+        </p>
+        <p style="margin-top: 14px">
+          Дякуємо вам за підтримку, довіру і те, що ви дозволяєте своїм дітям
+          рости через практику. Без вашого тепла вдома — не було б цих перемог у
+          навчанні. Ваша підтримка — частина кожного з цих проєктів.
+        </p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── WHAT WE LEARNED ── -->
+    <section>
+      <span class="section-label">Чому навчились</span>
+      <h2>Hard Skills & Soft Skills</h2>
+      <p>
+        Модуль CSS Grid — це фундамент сучасного веб-дизайну. Учні освоїли всі
+        ключові властивості: від
+        <code
+          style="
+            color: var(--blue);
+            background: rgba(79, 142, 247, 0.1);
+            padding: 1px 6px;
+            border-radius: 4px;
+          "
+          >grid-template-columns</code
+        >
+        до
+        <code
+          style="
+            color: var(--blue);
+            background: rgba(79, 142, 247, 0.1);
+            padding: 1px 6px;
+            border-radius: 4px;
+          "
+          >grid-area</code
+        >
+        — і застосували знання у реальних проєктах з адаптивним дизайном.
+      </p>
+      <p>
+        Але крім коду, кожна команда розвивала те, що неможливо знайти в
+        документації — soft skills.
+      </p>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon b">🧩</div>
+          <div>
+            <div class="skill-title">CSS Grid</div>
+            <div class="skill-desc">
+              Всі властивості модуля, адаптивні сітки, grid-areas, auto-fill і
+              auto-fit
+            </div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon m">🎨</div>
+          <div>
+            <div class="skill-title">Дизайн у Figma</div>
+            <div class="skill-desc">
+              Прототипування, компоненти, передача макетів розробникам
+            </div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon p">🤝</div>
+          <div>
+            <div class="skill-title">Командна робота</div>
+            <div class="skill-desc">
+              Розподіл ролей, спільне вирішення конфліктів
+            </div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon o">💬</div>
+          <div>
+            <div class="skill-title">Комунікація</div>
+            <div class="skill-desc">
+              Пошук і спілкування з реальним замовником, презентація результату
+            </div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon b">🚀</div>
+          <div>
+            <div class="skill-title">Деплой</div>
+            <div class="skill-desc">
+              Публікація сайтів на GitHub Pages — живий результат у мережі
+            </div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon m">⏱️</div>
+          <div>
+            <div class="skill-title">Тайм-менеджмент</div>
+            <div class="skill-desc">
+              Планування задач, дедлайни, ітерації від прототипу до фінального
+              сайту
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── GROUP PHOTO ── -->
+    <div class="group-photo-section">
+      <div class="group-photo-box">
+        <div class="group-photo-inner">
+          <img src="./group.jpeg" alt="" class="photo__group" />
+        </div>
+        <div class="photo-caption">Наша група — всі учні модуля CSS Grid</div>
+      </div>
+    </div>
+
+    <!-- ── TEAMS ── -->
+    <section style="max-width: 900px">
+      <div class="teams-header">
+        <span class="section-label">Проєктні роботи</span>
+        <h2>П'ять команд — п'ять ідей</h2>
+        <p style="color: var(--muted); max-width: 500px; margin: 0 auto">
+          Кожна команда обрала власну тему, зробила дизайн у Figma та розробила
+          адаптивний сайт. Натисніть на посилання — і побачите живий результат.
+        </p>
+      </div>
+
+      <div class="teams-grid">
+        <!-- Team 1 -->
+        <div class="team-card">
+          <div class="team-num">01</div>
+          <div class="team-photo-area">
+            <div class="team-photo-placeholder">
+              <img src="./mind.jpeg" alt="" class="photo__group" />
+            </div>
+          </div>
+          <div class="team-body">
+            <div class="team-name">Upgrade Your Mind</div>
+            <div class="team-members">
+              <span class="member-tag">Прокопів Вікторія</span>
+              <span class="member-tag">Томко Ангеліна</span>
+            </div>
+            <a
+              href="https://angelina-tm.github.io/mental_upgrade/"
+              target="_blank"
+              class="team-link"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"
+                />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+              angelina-tm.github.io/mental_upgrade
+            </a>
+          </div>
+        </div>
+
+        <!-- Team 2 -->
+        <div class="team-card">
+          <div class="team-num">02</div>
+          <div class="team-photo-area">
+            <div class="team-photo-placeholder">
+              <img src="./tour.jpeg" alt="" class="photo__group" />
+            </div>
+          </div>
+          <div class="team-body">
+            <div class="team-name">Тури Україною</div>
+            <div class="team-members">
+              <span class="member-tag">Волошин Матвій</span>
+              <span class="member-tag">Заник Андрій</span>
+            </div>
+            <a
+              href="https://zanan-ux.github.io/project-tours/"
+              target="_blank"
+              class="team-link"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"
+                />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+              zanan-ux.github.io/project-tours
+            </a>
+          </div>
+        </div>
+
+        <!-- Team 3 -->
+        <div class="team-card">
+          <div class="team-num">03</div>
+          <div class="team-photo-area">
+            <div class="team-photo-placeholder">
+              <img src="./animal.jpeg" alt="" class="photo__group" />
+            </div>
+          </div>
+          <div class="team-body">
+            <div class="team-name">Animal GYM</div>
+            <div class="team-members">
+              <span class="member-tag">Когуч Софія</span>
+              <span class="member-tag">Баштенко Вероніка</span>
+              <span class="member-tag">Навроцький Назар</span>
+              <span class="member-tag">Дуда Віталій</span>
+            </div>
+            <a
+              href="https://sqnyya.github.io/animalgym/"
+              target="_blank"
+              class="team-link"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"
+                />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+              sqnyya.github.io/animalgym
+            </a>
+          </div>
+        </div>
+
+        <!-- Team 4 — real client! -->
+        <div class="team-card special">
+          <div class="team-num">04</div>
+          <div
+            class="team-photo-area"
+            style="background: linear-gradient(135deg, #1e1a0f, #2d2510)"
+          >
+            <div class="team-photo-placeholder">
+              <img src="./libliy.jpeg" alt="" class="photo__group" />
+            </div>
+          </div>
+          <div class="team-body">
+            <div class="team-name">Ліблія</div>
+            <div class="team-members">
+              <span class="member-tag">Савків Захарій</span>
+              <span class="member-tag">Мердух Денис</span>
+              <span class="member-tag">Лоїк Марко</span>
+            </div>
+            <a
+              href="https://zaharij652.github.io/liblia/"
+              target="_blank"
+              class="team-link"
+               >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"
+                />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+              zaharij652.github.io/liblia
+            </a>
+          </div>
+        </div>
+
+        <!-- Team 5 — full width -->
+        <div class="team-card" style="grid-column: 1/-1">
+          <div class="team-num">05</div>
+          <div class="team-photo-area">
+            <div class="team-photo-placeholder">
+              <img src="./auto.jpeg" alt="" class="photo__group" />
+            </div>
+          </div>
+          <div class="team-body">
+            <div class="team-name">Auto Impulse</div>
+            <div class="team-members">
+              <span class="member-tag">Дробишевський Назар</span>
+              <span class="member-tag">Лазорко Валентин</span>
+            </div>
+            <a
+              href="https://velentinnn.github.io/autoimpulse/"
+              target="_blank"
+              class="team-link"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"
+                />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+              velentinnn.github.io/autoimpulse
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+      <p><strong>Школа Комп'ютерної Майстерності (ШКМ)</strong></p>
+      <p style="margin-top: 6px">
+        Модуль CSS Grid · Проєктні роботи · 2025–2026
+      </p>
+    </footer>
+  </body>
+</html>
